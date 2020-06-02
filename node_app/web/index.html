@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>メモ帳</title>
+<style type="text/css">
+  textarea{width:30%;height:20%;}
+</style>
+</head>
+
+
+<body>
+
+  <h1>メモ帳です</h1>
+  <div>
+    <ul id="todo-container"></ul>
+  </div>
+
+  <textarea name="memo" id="id_memo"></textarea>
+
+  <p>
+    <input type="button" value="保存" onclick=saveMemo();></input>
+    <input type="button" value="全削除" onclick=delete_all();></input>
+    <input type="button" value="clear" onclick=clear2();></input>
+    <input type="button" value="reverse" onclick=sort_reverse();></input>
+  </p>
+
+  <select id="category">
+    <option value="javascript">javascript</option>
+    <option value="nodejs">nodejs</option>
+    <option value="database">database</option>
+    <option value="daily">daily</option>
+  </select>
+
+  <table>
+    <!-- <tr> <th>キー</th> <th>値</th> </tr> -->
+    <tbody id="memo_table">
+    </tbody>
+  </table>
+  
+  <script type="text/javascript" src="./db.js"></script>
+  <script type="text/javascript" src="./main.js"></script>
+
+</body>
+</html>
+
+
+
