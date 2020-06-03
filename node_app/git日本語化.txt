@@ -1,0 +1,5 @@
+
+git statusすると日本語ファイルが文字化けする件は
+以下の設定で解決できる。
+
+git config --local core.quotepath false

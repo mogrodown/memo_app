@@ -1,15 +1,15 @@
 
-function deleteDB(action, id) {
+function deleteMemoDb(id) {
   return fetch('./api/memo/' + id, {method: "DELETE"})
     .then((response) => response.json())
 }
 
-function readDB(action) {
-  return fetch('./api/memo?category=' + 'helloworld')
+function readMemoDbAll(category) {
+  return fetch('./api/memo?category=' + category)
     .then((response) => response.json())
 }
 
-function writeDB(action, record) {
+function writeMemoDb(record) {
   return fetch('./api/memo',
         {method: "POST",
          headers: {

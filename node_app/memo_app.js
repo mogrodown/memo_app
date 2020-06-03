@@ -41,8 +41,13 @@ app.get('/api/memo/', (req, res) => {
   console.log('category = ', req.query.category);
   MongoClient.connect(url, option, (err, client) => {
     assert.equal(null, err);
+    condition = {}
+    if (req.query.category != 'none') {
+      condition = {category: req.query.category}
+    }
     // client.db('memo').collection('memo').find().sort({date:1}).toArray((err, result) => {client.close(); res.send(result);});
-    client.db('memo').collection('memo').find({category:'javascript'}).sort({date:-1}).toArray((err, result) => {client.close(); res.send(result);});
+    //client.db('memo').collection('memo').find({category:'javascript'}).sort({date:-1}).toArray((err, result) => {client.close(); res.send(result);});
+    client.db('memo').collection('memo').find(condition).sort({date:-1}).toArray((err, result) => {client.close(); res.send(result);});
   });
 });
 

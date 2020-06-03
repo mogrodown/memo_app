@@ -1,17 +1,20 @@
 
-function saveMemo() {
+function category_changed() {
+  showMemoList(document.getElementById("category").value);
+}
 
+function saveMemo() {
   // DBへの書き出しが完了したら、UIを再描画する。
-  writeDB('memo', {date: date_string(),
+  writeMemoDb({date: date_string(),
              memo:document.getElementById("id_memo").value,
              category: document.getElementById("category").value
             })
-    .then(showMemoList());
+    .then(showMemoList('none'));
 }
 
 function deleteMemo(id) {
-  deleteDB('memo', id)
-    .then(showMemoList());
+  deleteMemoDb(id)
+    .then(showMemoList('none'));
 }
 
 function clear2() {
@@ -22,27 +25,12 @@ function delete_all() {
   Object.keys(localStorage).forEach(function(key) {
     localStorage.removeItem(key);
   });
-  showMemoList();
+  showMemoList('none');
 }
 
-function sort_reverse() {
-  sort_order = localStorage.getItem('sort_order');
-  console.log(sort_order);
-  if (!sort_order) {
-    sort_order='des';
-  } else {
-    if (sort_order == 'asc') {
-      sort_order = 'des';
-    } else {
-      sort_order = 'asc';
-    }
-  }
-  localStorage.setItem('sort_order', sort_order);
-  showMemoList()
-}
-
-function showMemoList() {
+function showMemoList(category) {
   console.log('show memo list');
+
   // わかったぞ、then句のチェーンがなんのために用意されているか。
   // getMemoList関数内はwebAPIをコールするfetchAPIを叩いており、
   // これは非同期関数である。やりたいのは、この非同期fetchAPIを叩いて
@@ -56,7 +44,7 @@ function showMemoList() {
   //
   // Promiseとは、JavaScriptエンジンの実行スタックに予約しておいたよ、
   // というニュアンスかな。
-  readDB('memo_list')
+  readMemoDbAll(category)
     .then(res_json => {
       console.log('res json = ', res_json);
       let tb = document.getElementById("memo_table");
@@ -95,7 +83,7 @@ function showMemoList() {
 }
 
 window.onload = function() {
-  showMemoList();
+  showMemoList('none');
 }
 
 function zero(number) {

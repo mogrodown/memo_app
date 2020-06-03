@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>メモ帳</title>
+<link rel="stylesheet" type="text/css" href="main.css">
 <style type="text/css">
   textarea{width:30%;height:20%;}
 </style>
@@ -14,29 +15,37 @@
     <ul id="todo-container"></ul>
   </div>
 
+  <div>
   <textarea name="memo" id="id_memo"></textarea>
-
   <p>
     <input type="button" value="保存" onclick=saveMemo();></input>
-    <input type="button" value="全削除" onclick=delete_all();></input>
-    <input type="button" value="clear" onclick=clear2();></input>
+    <input type="button" value="消去" onclick=clear2();></input>
     <input type="button" value="reverse" onclick=sort_reverse();></input>
   </p>
+  </div>
 
-  <select id="category">
+  <div>
+    カテゴリ選択:
+  <select id="category" onchange="category_changed();">
+    <option value="none">none</option>
+    <option value="html/css">html/css</option>
     <option value="javascript">javascript</option>
     <option value="nodejs">nodejs</option>
     <option value="database">database</option>
     <option value="daily">daily</option>
   </select>
+  　リバース
+  <input type="button" value="昇順/降順" onclick=sort_reverse();></input>
 
   <table>
     <!-- <tr> <th>キー</th> <th>値</th> </tr> -->
     <tbody id="memo_table">
     </tbody>
   </table>
+  </div>
   
-  <script type="text/javascript" src="./db.js"></script>
+  <script type="text/javascript" src="./storage.js"></script>
+  <script type="text/javascript" src="./memo_db.js"></script>
   <script type="text/javascript" src="./main.js"></script>
 
 </body>
