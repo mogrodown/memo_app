@@ -3,6 +3,20 @@ function category_changed() {
   showMemoList(document.getElementById("category").value);
 }
 
+function sort_reverse() {
+  sort_order = localStorage.getItem('sort_order');
+  if (!sort_order) {
+    localStorage.setItem('sort_order', 'asc');
+  } else {
+    if (sort_order == 'asc') {
+      localStorage.setItem('sort_order', 'des');
+    } else {
+      localStorage.setItem('sort_order', 'asc');
+    }
+  }
+  showMemoList(document.getElementById("category").value);
+}
+
 function saveMemo() {
   // DBへの書き出しが完了したら、UIを再描画する。
   writeMemoDb({date: date_string(),
@@ -21,16 +35,7 @@ function clear2() {
   document.getElementById("id_memo").value = '';
 }
 
-function delete_all() {
-  Object.keys(localStorage).forEach(function(key) {
-    localStorage.removeItem(key);
-  });
-  showMemoList('none');
-}
-
 function showMemoList(category) {
-  console.log('show memo list');
-
   // わかったぞ、then句のチェーンがなんのために用意されているか。
   // getMemoList関数内はwebAPIをコールするfetchAPIを叩いており、
   // これは非同期関数である。やりたいのは、この非同期fetchAPIを叩いて
@@ -44,7 +49,7 @@ function showMemoList(category) {
   //
   // Promiseとは、JavaScriptエンジンの実行スタックに予約しておいたよ、
   // というニュアンスかな。
-  readMemoDbAll(category)
+  readMemoDbAll(category, localStorage.getItem('sort_order'))
     .then(res_json => {
       console.log('res json = ', res_json);
       let tb = document.getElementById("memo_table");
@@ -83,16 +88,6 @@ function showMemoList(category) {
 }
 
 window.onload = function() {
+  localStorage.setItem('sort_order', 'asc');
   showMemoList('none');
-}
-
-function zero(number) {
-    return String("0" + number).slice(-2);
-}
-
-function date_string() {
-  date = new Date();
-  return date.getFullYear() + '/' +
-    zero(date.getMonth()+1) + '/' + zero(date.getDate()) + ' ' +
-    zero(date.getHours()) + ':' + zero(date.getMinutes()) + ':' + zero(date.getSeconds());
 }
