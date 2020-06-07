@@ -1,0 +1,15 @@
+
+expressサーバへのデプロイ方法
+
+> npm install --global vue-cli
+> vue init webpack <プロジェクト名>
+> cd <プロジェクト名>
+> npm install
+> npm run dev
+ここまではいつもの。
+
+> npm run build
+これで、dist下にindex.htmlとstaticフォルダが出来る。
+この２つを、expressのドキュメントルートに配置すると、
+うまく動作する。
+
