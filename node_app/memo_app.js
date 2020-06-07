@@ -14,7 +14,8 @@ const option = {
 
 const app = express();
 
-app.use(express.static('web'));
+// app.use(express.static('web'));
+app.use(express.static('web2'));
 app.use(bodyParser.json());
 
 app.post('/api/memo/', (req, res) => {
