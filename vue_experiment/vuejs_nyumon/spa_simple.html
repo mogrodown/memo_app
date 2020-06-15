@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<title>SPAのもっともシンプルな例</title>
+<script src="https://unpkg.com/vue@2.5.17"></script>
+<script src="https://unpkg.com/vue-router@3.0.1"></script>
+
+<div id="app">
+    <router-link to="/top">トップページ</router-link>
+    <router-link to="/users">ユーザ一覧ページ</router-link>
+    <router-view></router-view>
+</div>
+
+<script>
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/top',
+                component: {
+                    template: '<div>トップページです</div>'
+                }
+            },
+            {
+                path:'/users',
+                component: {
+                    template: '<div>ユーザ一覧ページです。'
+                }
+            }
+        ]
+    })
+
+    var app = new Vue({
+        router: router
+    }).$mount('#app')
+
+</script>
